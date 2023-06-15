@@ -8,7 +8,6 @@ import {getSavedMessages, setSavedMessages} from "../../utils";
 import {setSavedMessageSlice} from "../../redux/slices/messageSlice";
 import Button from "../Button/Button";
 import {SingleMessage} from "../../typings";
-import toast from "react-hot-toast";
 
 const Messages = () => {
     const dispatch = useDispatch();
@@ -18,7 +17,6 @@ const Messages = () => {
     const savedMessagesArray: Array<string> = useSelector((state: any) => state.messages.savedMessages);
     const loadedAll: boolean = useSelector((state: any) => state.messages.loadedAll);
     const {messages} = useMessages({latestMessageId});
-
     const loadOldMessages = () => {
         dispatch({type: GET_OLD_MESSAGES, latestMessageId, oldMessages: true});
     }
@@ -50,7 +48,7 @@ const Messages = () => {
             <Button onClick={sort}>Asc/Desc</Button>
             {!(sortedMessages.length > 0) && messages.map(message => <Message addToSaved={handleClick}
                                                                               savedMessage={savedMessagesArray.includes(message.id)}
-                                                                              key={message.id} message={message}/>)}
+                                                                              key={Math.floor(Math.random() * 10000)} message={message}/>)}
             {sortedMessages.length > 0 && sortedMessages.map(message => <Message addToSaved={handleClick}
                                                                                  savedMessage={savedMessagesArray.includes(message.id)}
                                                                                  key={message.id} message={message}/>)}

@@ -9,11 +9,12 @@ export const useMessages = ({latestMessageId}: { latestMessageId: number }) => {
     const loadedAll: Array<SingleMessage> = useSelector((state: any) => state.messages.loadedAll);
     useEffect(() => {
         try {
+
             dispatch({type: GET_MESSAGES, latestMessageId, oldMessages: false});
         } catch (e: any) {
             console.log(e.message)
         }
-    }, [latestMessageId]);
+    }, []);
     useEffect(() => {
         let intervalId: any = null;
 

@@ -1,14 +1,14 @@
-import axios,{AxiosError} from "axios";
+import axios, {AxiosError} from "axios";
 
-export const getMessages = async (latestMessagesId: number, oldMessages: boolean) => {
+export const getMessages = async (latestMessageId: number | string, oldMessages: boolean) => {
     try {
-        const formData: any = new FormData();
-        formData.append('actionName', 'MessagesLoad');
-        formData.append('messageId', latestMessagesId);
-        formData.append('oldMessages', oldMessages);
         const response: any = await axios.post(
             'http://a0830433.xsph.ru/',
-            formData,
+            {
+                actionName: 'MessagesLoad',
+                messageId: latestMessageId,
+                oldMessages
+            },
             {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -18,6 +18,7 @@ export const getMessages = async (latestMessagesId: number, oldMessages: boolean
 
         return response.data;
     } catch (error: any) {
+        console.log("api ishlamayapti")
         throw new Error(error);
     }
 };

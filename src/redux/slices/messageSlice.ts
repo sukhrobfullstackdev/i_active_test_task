@@ -13,8 +13,8 @@ const messagesSlice = createSlice({
     initialState,
     reducers: {
         getMessagesSlice: (state, action) => {
-            state.latestMessageId = Number(action.payload[action.payload.length - 1].id);
-            state.messages = action.payload;
+            state.messages = [...state.messages, ...action.payload];
+            state.latestMessageId = Number(state.messages[state.messages.length - 1].id);
             return state;
         },
         getOldMessagesSlice: (state, action) => {
@@ -23,9 +23,13 @@ const messagesSlice = createSlice({
             return state;
         },
         getMoreMessagesSlice: (state, action) => {
-            if (JSON.stringify(action.payload).includes(JSON.stringify(state.messages))) state.loadedAll = true;
-            state.messages = JSON.stringify(action.payload).includes(JSON.stringify(state.messages)) ? state.messages : [...state.messages,...action.payload];
-            state.latestMessageId = Number(state.messages[state.messages.length - 1].id);
+            if (action.payload === undefined) {
+                state.loadedAll = true;
+                state.messages = [...state.messages];
+            } else {
+                state.messages = [...state.messages, ...action.payload];
+                state.latestMessageId = Number(state.messages[state.messages.length - 1].id);
+            }
             return state;
         },
         setSavedMessageSlice: (state, action) => {

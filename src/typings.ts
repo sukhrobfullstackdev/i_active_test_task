@@ -49,4 +49,4 @@ export interface IMessageSliceInitialState {
     latestMessageId: number | string,
     savedMessages: any
 }
-export interface ISagaProps {type: string,oldMessages: boolean,latestMessagesId: number}
+export interface ISagaProps {type: string,oldMessages: boolean,latestMessageId: string | number}

@@ -7,7 +7,7 @@ import {ISagaProps, MessagesAPIData} from "../../typings";
 
 export function* getMessagesSaga(data: ISagaProps) {
     try {
-        const result: MessagesAPIData = yield call(getMessages, data.latestMessagesId,data.oldMessages);
+        const result: MessagesAPIData = yield call(getMessages, data.latestMessageId,data.oldMessages);
         yield put(getMessagesSlice(result.Messages));
     } catch (e: any) {
         throw new Error(e);
@@ -15,7 +15,7 @@ export function* getMessagesSaga(data: ISagaProps) {
 }
 export function* getOldMessagesSaga(data: ISagaProps) {
     try {
-        const result: MessagesAPIData = yield call(getMessages, data.latestMessagesId,data.oldMessages);
+        const result: MessagesAPIData = yield call(getMessages, data.latestMessageId,data.oldMessages);
         yield put(getOldMessagesSlice(result.Messages));
     } catch (e: any) {
         throw new Error(e);
@@ -23,7 +23,8 @@ export function* getOldMessagesSaga(data: ISagaProps) {
 }
 export function* getMoreMessagesSaga(data: ISagaProps) {
     try {
-        const result: MessagesAPIData = yield call(getMessages, data.latestMessagesId,data.oldMessages);
+        const result: MessagesAPIData = yield call(getMessages, data.latestMessageId,data.oldMessages);
+        console.log(result.Messages)
         yield put(getMoreMessagesSlice(result.Messages));
     } catch (e: any) {
         throw new Error(e);
